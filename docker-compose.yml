@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana # Set http://prometheus:9090 as url while creating dashboard not http://localhost:9090
+    ports:
+      - "3000:3000"
+
+  myapp:
+    build: .
+    ports:
+      - "8081:8081"
